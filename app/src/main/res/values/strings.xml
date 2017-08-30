@@ -3,4 +3,8 @@
 
     <string name="empty_view_title_text">The inventory is empty...</string>
     <string name="empty_view_subtitle_text">Perhaps you could begin by adding a product!</string>
+
+    <!--Editor activity fields to be filled by user hints-->
+    <string name="hint_product_name">Name</string>
+    <string name="hint_product_description">Description</string>
 </resources>
