@@ -114,6 +114,7 @@
 
             <ImageButton
                 android:id="@+id/plus_quantity_button"
+                android:layout_marginTop="@dimen/vertical_padding"
                 android:layout_width="@dimen/sum_button_side"
                 android:layout_height="@dimen/sum_button_side"
                 android:layout_centerVertical="true"
