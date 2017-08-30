@@ -10,5 +10,5 @@
 
     <dimen name="fab_margin">16dp</dimen>
 
-    <dimen name="sum_button_side">48dp</dimen>
+    <dimen name="sum_button_side">36dp</dimen>
 </resources>

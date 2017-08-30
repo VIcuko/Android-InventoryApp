@@ -60,7 +60,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="@dimen/vertical_padding">
+            android:layout_marginTop="@dimen/vertical_padding_subtitle">
 
             <EditText
                 android:id="@+id/edit_product_price"
@@ -75,14 +75,18 @@
                 android:layout_width="@dimen/sum_button_side"
                 android:layout_height="@dimen/sum_button_side"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/edit_product_price" />
+                android:layout_toLeftOf="@id/edit_product_price"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ic_remove_circle" />
 
             <ImageButton
                 android:id="@+id/plus_price_button"
                 android:layout_width="@dimen/sum_button_side"
                 android:layout_height="@dimen/sum_button_side"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/edit_product_price" />
+                android:layout_toRightOf="@id/edit_product_price"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ic_add_circle" />
 
         </RelativeLayout>
 
@@ -104,14 +108,18 @@
                 android:layout_width="@dimen/sum_button_side"
                 android:layout_height="@dimen/sum_button_side"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@id/edit_product_quantity" />
+                android:layout_toLeftOf="@id/edit_product_quantity"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ic_remove_circle" />
 
             <ImageButton
                 android:id="@+id/plus_quantity_button"
                 android:layout_width="@dimen/sum_button_side"
                 android:layout_height="@dimen/sum_button_side"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/edit_product_quantity" />
+                android:layout_toRightOf="@id/edit_product_quantity"
+                android:adjustViewBounds="true"
+                android:background="@drawable/ic_add_circle" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -145,7 +153,7 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/order_more_button"/>
+                android:text="@string/order_more_button" />
         </LinearLayout>
 
     </LinearLayout>
