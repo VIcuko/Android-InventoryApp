@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/empty_inventory_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/image_side"
+            android:layout_height="@dimen/image_side"
             android:layout_centerHorizontal="true"
             android:src="@drawable/ic_empty_inventory"/>
 
@@ -34,7 +34,7 @@
             android:layout_below="@+id/empty_inventory_image"
             android:layout_centerHorizontal="true"
             android:fontFamily="sans-serif-medium"
-            android:paddingTop="@dimen/vertical_padding"
+            android:paddingTop="@dimen/vertical_padding_subtitle"
             android:text="@string/empty_view_title_text"
             android:textColor="@color/empty_view_title"
             android:textAppearance="?android:textAppearanceMedium"/>

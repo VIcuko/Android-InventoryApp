@@ -4,6 +4,6 @@
     <color name="colorPrimaryDark">#0D47A1</color>
     <color name="colorAccent">#FFFF00</color>
 
-    <color name="empty_view_title">#64B5F6</color>
-    <color name="empty_view_subtitle">#BBDEFB</color>
+    <color name="empty_view_title">#42A5F5</color>
+    <color name="empty_view_subtitle">#64B5F6</color>
 </resources>
