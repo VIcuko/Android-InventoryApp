@@ -11,6 +11,6 @@
         android:id="@+id/inventory_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@values/list_view_padding"></ListView>
+        android:padding="@dimen/list_view_padding"></ListView>
 
 </RelativeLayout>
