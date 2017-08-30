@@ -15,28 +15,137 @@
         <ImageView
             android:layout_width="@dimen/product_image_side"
             android:layout_height="@dimen/product_image_side"
+            android:layout_gravity="center_vertical"
             android:background="@drawable/ic_empty_inventory" />
 
         <LinearLayout
+            android:id="@+id/container_overview"
             android:layout_width="0dp"
-            android:layout_weight="2"
             android:layout_height="wrap_content"
+            android:layout_weight="2"
             android:orientation="vertical"
             android:paddingLeft="@dimen/horizontal_padding">
 
+            <TextView
+                style="@style/CategoryStyle"
+                android:layout_width="wrap_content"
+                android:text="@string/category_overview" />
+
             <EditText
-                android:id="@+id/edit_pet_name"
+                android:id="@+id/edit_product_name"
+                style="@style/EditorFieldStyle"
                 android:hint="@string/hint_product_name"
-                android:inputType="textCapWords"
-                style="@style/EditorFieldStyle" />
+                android:inputType="textCapWords" />
 
-            <!-- Breed field -->
             <EditText
-                android:id="@+id/edit_pet_breed"
+                android:id="@+id/edit_product_breed"
+                style="@style/EditorFieldStyle"
                 android:hint="@string/hint_product_description"
-                android:inputType="textMultiLine"
-                style="@style/EditorFieldStyle" />
+                android:inputType="textMultiLine" />
 
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/category_product_details" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/vertical_padding">
+
+            <EditText
+                android:id="@+id/edit_product_price"
+                style="@style/EditorFieldStyle"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:hint="@string/hint_product_price"
+                android:inputType="numberDecimal" />
+
+            <ImageButton
+                android:id="@+id/minus_price_button"
+                android:layout_width="@dimen/sum_button_side"
+                android:layout_height="@dimen/sum_button_side"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/edit_product_price" />
+
+            <ImageButton
+                android:id="@+id/plus_price_button"
+                android:layout_width="@dimen/sum_button_side"
+                android:layout_height="@dimen/sum_button_side"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/edit_product_price" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/vertical_padding">
+
+            <EditText
+                android:id="@+id/edit_product_quantity"
+                style="@style/EditorFieldStyle"
+                android:layout_width="wrap_content"
+                android:layout_centerInParent="true"
+                android:hint="@string/hint_product_quantity"
+                android:inputType="number" />
+
+            <ImageButton
+                android:id="@+id/minus_quantity_button"
+                android:layout_width="@dimen/sum_button_side"
+                android:layout_height="@dimen/sum_button_side"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@id/edit_product_quantity" />
+
+            <ImageButton
+                android:id="@+id/plus_quantity_button"
+                android:layout_width="@dimen/sum_button_side"
+                android:layout_height="@dimen/sum_button_side"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/edit_product_quantity" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/container_provider_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/CategoryStyle"
+            android:text="@string/category_provider_info" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/edit_provider_name"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/hint_provider_name"
+                android:inputType="textCapWords" />
+
+            <EditText
+                android:id="@+id/edit_provider_phone"
+                style="@style/EditorFieldStyle"
+                android:hint="@string/hint_provider_phone"
+                android:inputType="textCapWords" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/order_more_button"/>
         </LinearLayout>
 
     </LinearLayout>

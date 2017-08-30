@@ -7,4 +7,17 @@
     <!--Editor activity fields to be filled by user hints-->
     <string name="hint_product_name">Name</string>
     <string name="hint_product_description">Description</string>
+    <string name="hint_product_price">Price</string>
+    <string name="hint_product_quantity">Quantity</string>
+    <string name="hint_provider_name">Provider name</string>
+    <string name="hint_provider_phone">Provider phone</string>
+
+    <!--Editor activity categories text-->
+    <string name="category_overview">Overview</string>
+    <string name="category_product_details">Product details</string>
+    <string name="category_provider_info">Provider information</string>
+    <string name="currency">€</string>
+    <string name="order_more_button">Order more</string>
+
+
 </resources>
