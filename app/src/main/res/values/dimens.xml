@@ -6,6 +6,7 @@
     <dimen name="vertical_padding_subtitle">8dp</dimen>
 
     <dimen name="image_side">128dp</dimen>
+    <dimen name="product_image_side">64dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
 </resources>
