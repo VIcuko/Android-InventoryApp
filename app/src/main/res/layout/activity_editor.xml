@@ -11,4 +11,6 @@
         android:layout_width="@dimen/product_image_side"
         android:layout_height="@dimen/product_image_side" />
 
+
+
 </LinearLayout>
