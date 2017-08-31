@@ -32,7 +32,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         Intent intent = getIntent();
         Uri currentProductUri = intent.getData();
 
-        mNameEditText = (EditText) findViewById(R.id.edit_product_name;
+        mNameEditText = (EditText) findViewById(R.id.edit_product_name);
         mDescriptionEditText = (EditText) findViewById(R.id.edit_product_description);
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
         mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
