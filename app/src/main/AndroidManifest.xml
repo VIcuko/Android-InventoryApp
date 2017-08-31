@@ -24,7 +24,7 @@
                 android:value=".InventoryActivity" />
         </activity>
         <provider
-            android:authorities="com.example.android.pets"
+            android:authorities="com.example.android.inventoryapp"
             android:name=".data.ProductProvider"
             android:exported="false">
         </provider>
