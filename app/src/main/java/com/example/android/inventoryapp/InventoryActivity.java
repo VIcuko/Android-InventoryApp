@@ -27,7 +27,6 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
 
     ProductCursorAdapter mCursorAdapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

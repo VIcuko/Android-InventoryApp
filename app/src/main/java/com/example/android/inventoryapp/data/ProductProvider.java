@@ -197,30 +197,29 @@ public class ProductProvider extends ContentProvider {
             return 0;
         }
 
-        String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
-        int price = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
-        int quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-        String providerName = values.getAsString(ProductEntry.COLUMN_PROVIDER_NAME);
-
         if (values.containsKey(ProductEntry.COLUMN_PROVIDER_NAME)) {
+            String name = values.getAsString(ProductEntry.COLUMN_PRODUCT_NAME);
             if (name == null || name.isEmpty()) {
                 throw new IllegalArgumentException("Product requires a name");
             }
         }
 
         if (values.containsKey(ProductEntry.COLUMN_PRODUCT_PRICE)) {
+            int price = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_PRICE);
             if (price < 0) {
                 throw new IllegalArgumentException("Price can\'t be negative");
             }
         }
 
         if (values.containsKey(ProductEntry.COLUMN_PRODUCT_QUANTITY)) {
+            int quantity = values.getAsInteger(ProductEntry.COLUMN_PRODUCT_QUANTITY);
             if (quantity < 0) {
                 throw new IllegalArgumentException("Quantity can\'t be negative");
             }
         }
 
         if (values.containsKey(ProductEntry.COLUMN_PROVIDER_NAME)) {
+            String providerName = values.getAsString(ProductEntry.COLUMN_PROVIDER_NAME);
             if (providerName == null || providerName.isEmpty()) {
                 throw new IllegalArgumentException("Provider requires a name");
             }
