@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -96,23 +98,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mPlusPriceImageButton.setOnClickListener(imageButtonClickListener(priceField, plusOne));
         mMinusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField, minusOne));
         mPlusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField, plusOne));
+
         mOrderMoreButton.setOnClickListener(orderMoreButtonClickListener());
         mOrderMoreButton.setClickable(false);
 
-        mProviderPhoneEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                String phoneNumber = mProviderPhoneEditText.getText().toString();
-                if (!phoneNumber.isEmpty()){
-                    mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.colorEditorAccent));
-                    mOrderMoreButton.setClickable(true);
-                } else{
-                    mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.non_clickable));
-                    mOrderMoreButton.setClickable(false);
-                }
-                return true;
-            }
-        });
+        mProviderPhoneEditText.addTextChangedListener(phoneNumberTextWatcher());
     }
 
     private View.OnClickListener imageButtonClickListener(final int field, final int action) {
@@ -151,6 +141,46 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     }
                 } else {
                     Toast.makeText(EditorActivity.this, "The provider\'s phone needs to be filled in", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+    }
+
+    private TextWatcher phoneNumberTextWatcher(){
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String phoneNumber = mProviderPhoneEditText.getText().toString();
+                if (!phoneNumber.isEmpty()) {
+                    mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.colorEditorAccent));
+                    mOrderMoreButton.setClickable(true);
+                } else {
+                    mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.non_clickable));
+                    mOrderMoreButton.setClickable(false);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String phoneNumber = mProviderPhoneEditText.getText().toString();
+                if (!phoneNumber.isEmpty()) {
+                    mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.colorEditorAccent));
+                    mOrderMoreButton.setClickable(true);
+                } else {
+                    mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.non_clickable));
+                    mOrderMoreButton.setClickable(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String phoneNumber = mProviderPhoneEditText.getText().toString();
+                if (!phoneNumber.isEmpty()) {
+                    mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.colorEditorAccent));
+                    mOrderMoreButton.setClickable(true);
+                } else {
+                    mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.non_clickable));
+                    mOrderMoreButton.setClickable(false);
                 }
             }
         };
