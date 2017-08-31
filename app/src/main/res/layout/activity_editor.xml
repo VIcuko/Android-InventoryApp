@@ -70,7 +70,8 @@
                 android:layout_marginLeft="@dimen/horizontal_padding"
                 android:layout_marginRight="@dimen/horizontal_padding"
                 android:hint="@string/hint_product_price"
-                android:inputType="numberDecimal" />
+                android:inputType="number"
+                android:textAlignment="center" />
 
             <ImageButton
                 android:id="@+id/minus_price_button"
@@ -105,7 +106,8 @@
                 android:layout_marginLeft="@dimen/horizontal_padding"
                 android:layout_marginRight="@dimen/horizontal_padding"
                 android:hint="@string/hint_product_quantity"
-                android:inputType="number" />
+                android:inputType="number"
+                android:textAlignment="center" />
 
             <ImageButton
                 android:id="@+id/minus_quantity_button"
@@ -118,10 +120,10 @@
 
             <ImageButton
                 android:id="@+id/plus_quantity_button"
-                android:layout_marginTop="@dimen/vertical_padding"
                 android:layout_width="@dimen/sum_button_side"
                 android:layout_height="@dimen/sum_button_side"
                 android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/vertical_padding"
                 android:layout_toRightOf="@id/edit_product_quantity"
                 android:adjustViewBounds="true"
                 android:background="@drawable/ic_add_circle" />
@@ -159,8 +161,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTint="@color/colorAccent"
-                android:textColor="@android:color/white"
-                android:text="@string/order_more_button" />
+                android:text="@string/order_more_button"
+                android:textColor="@android:color/white" />
         </LinearLayout>
 
     </LinearLayout>
