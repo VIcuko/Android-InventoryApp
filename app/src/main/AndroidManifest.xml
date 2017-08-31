@@ -23,11 +23,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".InventoryActivity" />
         </activity>
-        <provider
-            android:authorities="com.example.android.pets"
-            android:name=".data.InventoryProvider"
-            android:exported="false">
-        </provider>
+        <!--<provider-->
+            <!--android:authorities="com.example.android.pets"-->
+            <!--android:name=".data.InventoryProvider"-->
+            <!--android:exported="false">-->
+        <!--</provider>-->
     </application>
 
 </manifest>

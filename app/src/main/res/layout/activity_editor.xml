@@ -67,6 +67,8 @@
                 style="@style/EditorFieldStyle"
                 android:layout_width="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/horizontal_padding"
+                android:layout_marginRight="@dimen/horizontal_padding"
                 android:hint="@string/hint_product_price"
                 android:inputType="numberDecimal" />
 
@@ -100,6 +102,8 @@
                 style="@style/EditorFieldStyle"
                 android:layout_width="wrap_content"
                 android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/horizontal_padding"
+                android:layout_marginRight="@dimen/horizontal_padding"
                 android:hint="@string/hint_product_quantity"
                 android:inputType="number" />
 
@@ -154,6 +158,8 @@
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/colorAccent"
+                android:textColor="@android:color/white"
                 android:text="@string/order_more_button" />
         </LinearLayout>
 

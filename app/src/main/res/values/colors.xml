@@ -2,7 +2,11 @@
 <resources>
     <color name="colorPrimary">#2196F3</color>
     <color name="colorPrimaryDark">#0D47A1</color>
-    <color name="colorAccent">#FF6D00</color>
+    <color name="colorAccent">#FF3D00</color>
+
+    <color name="colorEditorPrimary">#4CAF50</color>
+    <color name="colorEditorPrimaryDark">#1B5E20</color>
+    <color name="colorEditorAccent">#FF3D00</color>
 
     <color name="empty_view_title">#42A5F5</color>
     <color name="empty_view_subtitle">#64B5F6</color>
