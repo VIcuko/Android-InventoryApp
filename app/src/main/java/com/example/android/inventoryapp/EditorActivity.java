@@ -86,15 +86,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
 
         // Now we add an onClickListener to each add and substract buttons to modify the corresponding fields
-        mMinusPriceImageButton.setOnClickListener(imageButtonClickListener(priceField,minusOne));
-        mPlusPriceImageButton.setOnClickListener(imageButtonClickListener(priceField,plusOne));
-        mMinusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField,minusOne));
-        mPlusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField,plusOne));
+        mMinusPriceImageButton.setOnClickListener(imageButtonClickListener(priceField, minusOne));
+        mPlusPriceImageButton.setOnClickListener(imageButtonClickListener(priceField, plusOne));
+        mMinusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField, minusOne));
+        mPlusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField, plusOne));
     }
 
-    private View.OnClickListener imageButtonClickListener(final int field, final int action){
+    private View.OnClickListener imageButtonClickListener(final int field, final int action) {
         final EditText objectField;
-        switch(field){
+        switch (field) {
             case priceField:
                 objectField = mPriceEditText;
                 break;
@@ -104,6 +104,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             default:
                 objectField = mPriceEditText;
         }
+
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
