@@ -100,7 +100,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mPlusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField, plusOne));
 
         mOrderMoreButton.setOnClickListener(orderMoreButtonClickListener());
-        mOrderMoreButton.setClickable(false);
 
         mProviderPhoneEditText.addTextChangedListener(phoneNumberTextWatcher());
     }
@@ -153,10 +152,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 String phoneNumber = mProviderPhoneEditText.getText().toString();
                 if (!phoneNumber.isEmpty()) {
                     mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.colorEditorAccent));
-                    mOrderMoreButton.setClickable(true);
                 } else {
                     mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.non_clickable));
-                    mOrderMoreButton.setClickable(false);
                 }
             }
 
@@ -165,10 +162,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 String phoneNumber = mProviderPhoneEditText.getText().toString();
                 if (!phoneNumber.isEmpty()) {
                     mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.colorEditorAccent));
-                    mOrderMoreButton.setClickable(true);
                 } else {
                     mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.non_clickable));
-                    mOrderMoreButton.setClickable(false);
                 }
             }
 
@@ -177,10 +172,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 String phoneNumber = mProviderPhoneEditText.getText().toString();
                 if (!phoneNumber.isEmpty()) {
                     mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.colorEditorAccent));
-                    mOrderMoreButton.setClickable(true);
                 } else {
                     mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.non_clickable));
-                    mOrderMoreButton.setClickable(false);
                 }
             }
         };
