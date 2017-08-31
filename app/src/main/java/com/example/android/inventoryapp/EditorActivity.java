@@ -198,60 +198,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         finish();
     }
 
-    @Override
-    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        // Define a projection that specifies the columns of the table we're interested in.
-        String[] projection = {
-                ProductEntry._ID,
-                ProductEntry.COLUMN_PRODUCT_NAME,
-                ProductEntry.COLUMN_PRODUCT_DESCRIPTION,
-                ProductEntry.COLUMN_PRODUCT_PRICE,
-                ProductEntry.COLUMN_PRODUCT_QUANTITY,
-                ProductEntry.COLUMN_PROVIDER_NAME,
-                ProductEntry.COLUMN_PROVIDER_PHONE};
-
-        return new CursorLoader(this,
-                ProductEntry.CONTENT_URI,
-                projection,
-                null,
-                null,
-                null
-        );
-    }
-
-    @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        // Proceed with moving to the first row of the cursor and reading data from it
-        // (This should be the only row in the cursor)
-        if (data.moveToFirst()) {
-
-            int nameColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_NAME);
-            int descriptionColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_DESCRIPTION);
-            int priceColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_PRICE);
-            int quantityColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_QUANTITY);
-            int providerNameColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PROVIDER_NAME);
-            int providerPhoneColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PROVIDER_PHONE);
-
-            // Here we handle the data received in the Cursor
-            mNameEditText.setText(data.getString(nameColumn));
-            mDescriptionEditText.setText(data.getString(descriptionColumn));
-            mPriceEditText.setText(Integer.toString(data.getInt(descriptionColumn)));
-            mQuantityEditText.setText(Integer.toString(data.getInt(quantityColumn)));
-            mProviderNameEditText.setText(data.getString(providerNameColumn));
-            mProviderPhoneEditText.setText(data.getString(providerPhoneColumn));
-        }
-    }
-
-    @Override
-    public void onLoaderReset(Loader<Cursor> loader) {
-        mNameEditText.setText("");
-        mDescriptionEditText.setText("");
-        mPriceEditText.setText("");
-        mQuantityEditText.setText("");
-        mProviderNameEditText.setText("");
-        mProviderPhoneEditText.setText("");
-    }
-
     private void showUnsavedChangesDialog(
             DialogInterface.OnClickListener discardButtonClickListener) {
         // Create an AlertDialog.Builder and set the message, and click listeners
@@ -320,5 +266,59 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // Show dialog that there are unsaved changes
         showUnsavedChangesDialog(discardButtonClickListener);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        // Define a projection that specifies the columns of the table we're interested in.
+        String[] projection = {
+                ProductEntry._ID,
+                ProductEntry.COLUMN_PRODUCT_NAME,
+                ProductEntry.COLUMN_PRODUCT_DESCRIPTION,
+                ProductEntry.COLUMN_PRODUCT_PRICE,
+                ProductEntry.COLUMN_PRODUCT_QUANTITY,
+                ProductEntry.COLUMN_PROVIDER_NAME,
+                ProductEntry.COLUMN_PROVIDER_PHONE};
+
+        return new CursorLoader(this,
+                ProductEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null
+        );
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // Proceed with moving to the first row of the cursor and reading data from it
+        // (This should be the only row in the cursor)
+        if (data.moveToFirst()) {
+
+            int nameColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_NAME);
+            int descriptionColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_DESCRIPTION);
+            int priceColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_PRICE);
+            int quantityColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+            int providerNameColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PROVIDER_NAME);
+            int providerPhoneColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PROVIDER_PHONE);
+
+            // Here we handle the data received in the Cursor
+            mNameEditText.setText(data.getString(nameColumn));
+            mDescriptionEditText.setText(data.getString(descriptionColumn));
+            mPriceEditText.setText(Integer.toString(data.getInt(priceColumn)));
+            mQuantityEditText.setText(Integer.toString(data.getInt(quantityColumn)));
+            mProviderNameEditText.setText(data.getString(providerNameColumn));
+            mProviderPhoneEditText.setText(data.getString(providerPhoneColumn));
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mNameEditText.setText("");
+        mDescriptionEditText.setText("");
+        mPriceEditText.setText("");
+        mQuantityEditText.setText("");
+        mProviderNameEditText.setText("");
+        mProviderPhoneEditText.setText("");
     }
 }
