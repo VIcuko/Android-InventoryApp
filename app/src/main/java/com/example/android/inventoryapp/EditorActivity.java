@@ -1,6 +1,7 @@
 package com.example.android.inventoryapp;
 
 import android.app.LoaderManager;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
@@ -14,6 +15,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -126,6 +130,58 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void saveProduct() {
+        String productName = !mNameEditText.getText().toString().trim().isEmpty() ? mNameEditText.getText().toString().trim() : null;
+        String productDescription = !mDescriptionEditText.getText().toString().trim().isEmpty() ? mDescriptionEditText.getText().toString().trim() : "";
+
+        String priceString = !mPriceEditText.getText().toString().trim().isEmpty() ? mPriceEditText.getText().toString().trim() : "0";
+        int productPrice = Integer.parseInt(priceString);
+
+        String quantityString = !mQuantityEditText.getText().toString().trim().isEmpty() ? mQuantityEditText.getText().toString().trim() : "0";
+        int productQuantity = Integer.parseInt(quantityString);
+
+        String providerName = !mProviderNameEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : null;
+        String providerPhone = !mProviderPhoneEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : null;
+
+        ContentValues values = new ContentValues();
+        values.put(ProductEntry.COLUMN_PRODUCT_NAME, productName);
+        values.put(ProductEntry.COLUMN_PRODUCT_DESCRIPTION, productDescription);
+        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, productPrice);
+        values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, productQuantity);
+        values.put(ProductEntry.COLUMN_PROVIDER_NAME, providerName);
+        values.put(ProductEntry.COLUMN_PROVIDER_PHONE, providerPhone);
+
+        if (!(productName == null &&
+                productDescription == "" &&
+                productPrice == ProductEntry.PRICE_INITIAL &&
+                productQuantity == 0 &&
+                providerName == null &&
+                providerPhone == null)) {
+
+            if (mCurrentProductUri == null) {
+                Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
+                if (newUri == null) {
+                    // If the new content URI is null, then there was an error with insertion.
+                    Toast.makeText(this, getString(R.string.editor_insert_product_failed),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    // Otherwise, the insertion was successful and we can display a toast.
+                    Toast.makeText(this, getString(R.string.editor_insert_product_successful),
+                            Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                int updatedLines = getContentResolver().update(mCurrentProductUri, values, null, null);
+                if (updatedLines > 0) {
+                    Toast.makeText(this, getString(R.string.editor_update_done),
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, getString(R.string.editor_update_none),
+                            Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 
     @Override
