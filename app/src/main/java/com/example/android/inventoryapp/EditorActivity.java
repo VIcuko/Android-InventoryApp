@@ -94,8 +94,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mPlusPriceImageButton.setOnClickListener(imageButtonClickListener(priceField, plusOne));
         mMinusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField, minusOne));
         mPlusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField, plusOne));
-
         mOrderMoreButton.setOnClickListener(orderMoreButtonClickListener());
+        mOrderMoreButton.setClickable(false);
+
+        mProviderPhoneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                String phoneNumber = mProviderPhoneEditText.getText().toString();
+                if (!phoneNumber.isEmpty()){
+                    mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.colorEditorAccent));
+                    mOrderMoreButton.setClickable(true);
+                } else{
+                    mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.non_clickable));
+                    mOrderMoreButton.setClickable(false);
+                }
+            }
+        });
     }
 
     private View.OnClickListener imageButtonClickListener(final int field, final int action) {

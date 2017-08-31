@@ -10,4 +10,6 @@
 
     <color name="empty_view_title">#42A5F5</color>
     <color name="empty_view_subtitle">#64B5F6</color>
+
+    <color name="non_clickable">#607D8B</color>
 </resources>
