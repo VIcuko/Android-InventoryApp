@@ -103,7 +103,7 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_delete_all_entries:
-//                showDeleteConfirmationDialog();
+                showDeleteConfirmationDialog();
                 return true;
         }
         return super.onOptionsItemSelected(item);
