@@ -19,8 +19,8 @@
 
         <ImageView
             android:id="@+id/empty_inventory_image"
-            android:layout_width="@dimen/image_side"
-            android:layout_height="@dimen/image_side"
+            android:layout_width="@dimen/empty_image_side"
+            android:layout_height="@dimen/empty_image_side"
             android:layout_centerHorizontal="true"
             android:src="@drawable/ic_empty_inventory" />
 

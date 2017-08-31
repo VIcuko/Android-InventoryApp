@@ -5,10 +5,12 @@
     <dimen name="vertical_padding">16dp</dimen>
     <dimen name="vertical_padding_subtitle">8dp</dimen>
 
-    <dimen name="image_side">128dp</dimen>
+    <dimen name="empty_image_side">128dp</dimen>
     <dimen name="product_image_side">64dp</dimen>
 
     <dimen name="fab_margin">16dp</dimen>
 
     <dimen name="sum_button_side">24dp</dimen>
+
+    <dimen name="item_product_quantity">16sp</dimen>
 </resources>
