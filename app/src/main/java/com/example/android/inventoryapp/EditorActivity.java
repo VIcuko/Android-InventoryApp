@@ -27,6 +27,8 @@ import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
 
+import static android.R.attr.name;
+
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int PRODUCT_LOADER = 0;
@@ -51,8 +53,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private static final int minusOne = -1;
     private static final int plusOne = 1;
-
-    private View.OnClickListener imageButtonListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -392,7 +392,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 ProductEntry.COLUMN_PROVIDER_PHONE};
 
         return new CursorLoader(this,
-                ProductEntry.CONTENT_URI,
+                mCurrentProductUri,
                 projection,
                 null,
                 null,
@@ -413,13 +413,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int providerNameColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PROVIDER_NAME);
             int providerPhoneColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PROVIDER_PHONE);
 
+            String nameText = data.getString(nameColumn);
+            String descriptionText = data.getString(descriptionColumn);
+            String priceText = Integer.toString(data.getInt(priceColumn));
+            String quantityText = Integer.toString(data.getInt(quantityColumn));
+            String providerNameText = data.getString(providerNameColumn);
+            String providerPhoneText = data.getString(providerPhoneColumn);
+
             // Here we handle the data received in the Cursor
-            mNameEditText.setText(data.getString(nameColumn));
-            mDescriptionEditText.setText(data.getString(descriptionColumn));
-            mPriceEditText.setText(Integer.toString(data.getInt(priceColumn)));
-            mQuantityEditText.setText(Integer.toString(data.getInt(quantityColumn)));
-            mProviderNameEditText.setText(data.getString(providerNameColumn));
-            mProviderPhoneEditText.setText(data.getString(providerPhoneColumn));
+            mNameEditText.setText(nameText);
+            mDescriptionEditText.setText(descriptionText);
+            mPriceEditText.setText(priceText);
+            mQuantityEditText.setText(quantityText);
+            mProviderNameEditText.setText(providerNameText);
+            mProviderPhoneEditText.setText(providerPhoneText);
         }
     }
 
