@@ -56,11 +56,8 @@ public class ProductCursorAdapter extends CursorAdapter {
 
                     Uri currentUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, cursor_id);
                     int updatedLines = context.getContentResolver().update(currentUri, values, null, null);
-                    if (updatedLines>0){
-                        Log.i("Positive updated lines","Lines updated: "+updatedLines);
-                    }
-                    else{
-                        Log.i("Negative updated lines","Lines updated: "+updatedLines);
+                    if (updatedLines>0 && quantityLeft == 0){
+                        saleButton.setBackgroundColor(context.getColor(R.color.non_clickable));
                     }
 
                 } else {
