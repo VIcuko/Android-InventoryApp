@@ -259,7 +259,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String quantityString = !mQuantityEditText.getText().toString().trim().isEmpty() ? mQuantityEditText.getText().toString().trim() : "0";
         int productQuantity = Integer.parseInt(quantityString);
 
-        String providerName = !mProviderNameEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : null;
+        String providerName = !mProviderNameEditText.getText().toString().trim().isEmpty() ? mProviderNameEditText.getText().toString().trim() : null;
         String providerPhone = !mProviderPhoneEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : null;
 
         ContentValues values = new ContentValues();

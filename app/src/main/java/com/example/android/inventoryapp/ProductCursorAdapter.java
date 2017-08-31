@@ -16,8 +16,6 @@ import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
 
-import static android.R.attr.id;
-
 /**
  * Created by Vicuko on 31/8/17.
  */
@@ -41,23 +39,28 @@ public class ProductCursorAdapter extends CursorAdapter {
         final TextView productQuantity = (TextView) view.findViewById(R.id.item_product_quantity);
 
         final Button saleButton = (Button) view.findViewById(R.id.sale_button);
+        final int cursor_id = cursor.getInt(cursor.getColumnIndexOrThrow(ProductEntry._ID));
 
         // Set listener to reduce by 1 the quantity when clicked
         saleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int quantityLeft = Integer.parseInt(productQuantity.getText().toString());
+                Log.i("quantityLeft variable","quantityLeft: "+quantityLeft);
                 if (quantityLeft > 0) {
                     quantityLeft -= 1;
                     ContentValues values = new ContentValues();
                     values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantityLeft);
 
-                    int cursor_id = cursor.getInt(cursor.getColumnIndexOrThrow(ProductEntry._ID));
+                    Log.i("cursor_id variable","cursor_id: "+ cursor_id);
 
                     Uri currentUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, cursor_id);
                     int updatedLines = context.getContentResolver().update(currentUri, values, null, null);
                     if (updatedLines>0 && quantityLeft == 0){
                         saleButton.setBackgroundColor(context.getColor(R.color.non_clickable));
+                    }
+                    else {
+                        saleButton.setBackgroundColor(context.getColor(R.color.colorAccent));
                     }
 
                 } else {
