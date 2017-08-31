@@ -23,4 +23,7 @@
     <string name="action_delete_all_entries">Delete all products</string>
     <string name="action_save">Save</string>
     <string name="action_delete">Delete</string>
+
+    <!--List view possible text-->
+    <string name="free_product">Free</string>
 </resources>
