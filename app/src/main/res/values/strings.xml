@@ -19,5 +19,8 @@
     <string name="currency">€</string>
     <string name="order_more_button">Order more</string>
 
+    <!--Menu strings-->
+    <string name="action_delete_all_entries">Delete all products</string>
+
 
 </resources>
