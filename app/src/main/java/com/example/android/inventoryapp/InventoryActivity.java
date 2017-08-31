@@ -84,13 +84,13 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        mCursorAdapter.swapCursor(data);
     }
 
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
-
+        mCursorAdapter.swapCursor(null);
     }
 
     @Override
