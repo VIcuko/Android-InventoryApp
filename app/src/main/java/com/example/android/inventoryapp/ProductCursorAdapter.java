@@ -38,13 +38,13 @@ public class ProductCursorAdapter extends CursorAdapter {
         int quantity = cursor.getInt(cursor.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_QUANTITY));
 
         productName.setText(name);
-        productQuantity.setText(quantity);
+        productQuantity.setText(Integer.toString(quantity));
 
         if (price == 0) {
             productPrice.setText(R.string.free_product);
         }
         else{
-            productPrice.setText(price + R.string.currency);
+            productPrice.setText(Integer.toString(price) + " " + R.string.currency);
         }
     }
 }

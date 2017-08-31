@@ -246,8 +246,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     public void onLoaderReset(Loader<Cursor> loader) {
         mNameEditText.setText("");
         mDescriptionEditText.setText("");
-        mPriceEditText.setText(0);
-        mQuantityEditText.setText(0);
+        mPriceEditText.setText("");
+        mQuantityEditText.setText("");
         mProviderNameEditText.setText("");
         mProviderPhoneEditText.setText("");
     }
