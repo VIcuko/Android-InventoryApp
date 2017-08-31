@@ -3,6 +3,7 @@ package com.example.android.inventoryapp;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
@@ -199,7 +200,23 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-        return null;
+        // Define a projection that specifies the columns of the table we're interested in.
+        String[] projection = {
+                ProductEntry._ID,
+                ProductEntry.COLUMN_PRODUCT_NAME,
+                ProductEntry.COLUMN_PRODUCT_DESCRIPTION,
+                ProductEntry.COLUMN_PRODUCT_PRICE,
+                ProductEntry.COLUMN_PRODUCT_QUANTITY,
+                ProductEntry.COLUMN_PROVIDER_NAME,
+                ProductEntry.COLUMN_PROVIDER_PHONE};
+
+        return new CursorLoader(this,
+                ProductEntry.CONTENT_URI,
+                projection,
+                null,
+                null,
+                null
+        );
     }
 
     @Override
@@ -257,5 +274,28 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         // Create and show the AlertDialog
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // If the product hasn't changed, continue with handling back button press
+        if (!mProductHasChanged) {
+            super.onBackPressed();
+            return;
+        }
+
+        // Otherwise if there are unsaved changes, setup a dialog to warn the user.
+        // Create a click listener to handle the user confirming that changes should be discarded.
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        // User clicked "Discard" button, close the current activity.
+                        finish();
+                    }
+                };
+
+        // Show dialog that there are unsaved changes
+        showUnsavedChangesDialog(discardButtonClickListener);
     }
 }
