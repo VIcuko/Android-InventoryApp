@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
@@ -31,8 +32,21 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mProviderNameEditText;
     private EditText mProviderPhoneEditText;
 
+    private ImageButton mMinusPriceImageButton;
+    private ImageButton mPlusPriceImageButton;
+    private ImageButton mMinusQuantityImageButton;
+    private ImageButton mPlusQuantityImageButton;
+
     private Uri mCurrentProductUri;
     private boolean mProductHasChanged = false;
+
+    private static final int priceField = 0;
+    private static final int quantityField = 1;
+
+    private static final int minusOne = -1;
+    private static final int plusOne = 1;
+
+    private View.OnClickListener imageButtonListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +62,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
         mProviderNameEditText = (EditText) findViewById(R.id.edit_provider_name);
         mProviderPhoneEditText = (EditText) findViewById(R.id.edit_provider_phone);
+
+        mMinusPriceImageButton = (ImageButton) findViewById(R.id.minus_price_button);
+        mPlusPriceImageButton = (ImageButton) findViewById(R.id.plus_price_button);
+        mMinusQuantityImageButton = (ImageButton) findViewById(R.id.minus_quantity_button);
+        mPlusQuantityImageButton = (ImageButton) findViewById(R.id.plus_quantity_button);
 
         mNameEditText.setOnTouchListener(mTouchListener);
         mDescriptionEditText.setOnTouchListener(mTouchListener);
@@ -65,6 +84,34 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Kick off loader
             getLoaderManager().initLoader(PRODUCT_LOADER, null, this);
         }
+
+        // Now we add an onClickListener to each add and substract buttons to modify the corresponding fields
+        mMinusPriceImageButton.setOnClickListener(imageButtonClickListener(priceField,minusOne));
+        mPlusPriceImageButton.setOnClickListener(imageButtonClickListener(priceField,plusOne));
+        mMinusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField,minusOne));
+        mPlusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField,plusOne));
+    }
+
+    private View.OnClickListener imageButtonClickListener(final int field, final int action){
+        final EditText objectField;
+        switch(field){
+            case priceField:
+                objectField = mPriceEditText;
+                break;
+            case quantityField:
+                objectField = mQuantityEditText;
+                break;
+            default:
+                objectField = mPriceEditText;
+        }
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int currentValue = !objectField.getText().toString().isEmpty() ? Integer.parseInt(objectField.getText().toString()) : 0;
+                currentValue += action;
+                objectField.setText(Integer.toString(currentValue));
+            }
+        };
     }
 
     @Override
