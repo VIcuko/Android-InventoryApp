@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
 
@@ -92,4 +93,14 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
         return super.onOptionsItemSelected(item);
     }
 
+    private void deleteAllItems() {
+        int deletedLines = getContentResolver().delete(ProductEntry.CONTENT_URI, null, null);
+        if (deletedLines > 0) {
+            Toast.makeText(this, getString(R.string.editor_deleted_done),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.editor_deleted_none),
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
 }

@@ -26,4 +26,26 @@
 
     <!--List view possible text-->
     <string name="free_product">Free</string>
+
+    <!--Messages to user-->
+    <string name="editor_insert_product_successful">Product saved</string>
+    <string name="editor_insert_product_failed">Error with saving product</string>
+
+    <string name="editor_update_none">It seems nothing was updated</string>
+    <string name="editor_update_done">Update successful</string>
+
+    <string name="editor_deleted_none">It seems nothing was deleted</string>
+    <string name="editor_deleted_done">Delete successful</string>
+
+    <!--Dialogs text-->
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+
+    <string name="delete_dialog_msg">Delete this product?</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="delete_all_dialog_msg">Are you sure you want to delete all pets?</string>
+
 </resources>
