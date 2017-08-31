@@ -220,8 +220,26 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        // Proceed with moving to the first row of the cursor and reading data from it
+        // (This should be the only row in the cursor)
+        if (data.moveToFirst()) {
 
+            int nameColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_NAME);
+            int descriptionColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_DESCRIPTION);
+            int priceColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_PRICE);
+            int quantityColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_QUANTITY);
+            int providerNameColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PROVIDER_NAME);
+            int providerPhoneColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PROVIDER_PHONE);
+
+            // Here we handle the data received in the Cursor
+            mNameEditText.setText(data.getString(nameColumn));
+            mDescriptionEditText.setText(data.getString(descriptionColumn));
+            mPriceEditText.setText(Integer.toString(data.getInt(descriptionColumn)));
+            mQuantityEditText.setText(Integer.toString(data.getInt(quantityColumn)));
+            mProviderNameEditText.setText(data.getString(providerNameColumn));
+            mProviderPhoneEditText.setText(data.getString(providerPhoneColumn));
+        }
     }
 
     @Override
