@@ -52,5 +52,6 @@
     <string name="editor_activity_title_edit_product">Edit product</string>
 
     <string name="sale_button">Sale</string>
+    <string name="units_text">units</string>
 
 </resources>
