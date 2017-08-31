@@ -12,11 +12,22 @@
         <activity android:name=".InventoryActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditorActivity"></activity>
+        <activity
+            android:name=".EditorActivity"
+            android:theme="@style/EditorTheme"
+            android:parentActivityName=".InventoryActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".InventoryActivity" />
+        </activity>
+        <provider
+            android:authorities="com.example.android.pets"
+            android:name=".data.InventoryProvider"
+            android:exported="false">
+        </provider>
     </application>
 
 </manifest>
