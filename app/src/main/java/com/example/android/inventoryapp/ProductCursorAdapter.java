@@ -44,7 +44,7 @@ public class ProductCursorAdapter extends CursorAdapter {
             productPrice.setText(R.string.free_product);
         }
         else{
-            productPrice.setText(Integer.toString(price) + " " + R.string.currency);
+            productPrice.setText(Integer.toString(price) + " " + context.getString(R.string.currency));
         }
     }
 }
