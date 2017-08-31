@@ -13,4 +13,5 @@
     <dimen name="sum_button_side">24dp</dimen>
 
     <dimen name="item_product_quantity">16sp</dimen>
+    <dimen name="quantity_padding">32dp</dimen>
 </resources>
