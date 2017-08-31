@@ -78,6 +78,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (currentProductUri == null) {
             setTitle(getString(R.string.editor_activity_title_add_product));
             invalidateOptionsMenu();
+
         } else {
             setTitle(getString(R.string.editor_activity_title_edit_product));
             mCurrentProductUri = currentProductUri;
