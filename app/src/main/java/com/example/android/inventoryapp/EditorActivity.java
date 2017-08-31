@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private ImageButton mPlusPriceImageButton;
     private ImageButton mMinusQuantityImageButton;
     private ImageButton mPlusQuantityImageButton;
+    private Button mOrderMoreButton;
 
     private Uri mCurrentProductUri;
     private boolean mProductHasChanged = false;
@@ -67,6 +69,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mPlusPriceImageButton = (ImageButton) findViewById(R.id.plus_price_button);
         mMinusQuantityImageButton = (ImageButton) findViewById(R.id.minus_quantity_button);
         mPlusQuantityImageButton = (ImageButton) findViewById(R.id.plus_quantity_button);
+        mOrderMoreButton = (Button) findViewById(R.id.order_more_button);
 
         mNameEditText.setOnTouchListener(mTouchListener);
         mDescriptionEditText.setOnTouchListener(mTouchListener);
@@ -78,7 +81,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (currentProductUri == null) {
             setTitle(getString(R.string.editor_activity_title_add_product));
             invalidateOptionsMenu();
-
+            mOrderMoreButton.setVisibility(View.GONE);
         } else {
             setTitle(getString(R.string.editor_activity_title_edit_product));
             mCurrentProductUri = currentProductUri;
@@ -91,6 +94,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mPlusPriceImageButton.setOnClickListener(imageButtonClickListener(priceField, plusOne));
         mMinusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField, minusOne));
         mPlusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField, plusOne));
+
+        mOrderMoreButton.setOnClickListener(orderMoreButtonClickListener());
     }
 
     private View.OnClickListener imageButtonClickListener(final int field, final int action) {
@@ -116,7 +121,24 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         };
     }
 
-    @Override
+    private View.OnClickListener orderMoreButtonClickListener() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String phoneNumber = mProviderPhoneEditText.getText().toString();
+                if (!phoneNumber.isEmpty()) {
+                    Intent intent = new Intent(Intent.ACTION_DIAL);
+                    intent.setData(Uri.parse("tel:" + phoneNumber));
+                    if (intent.resolveActivity(getPackageManager()) != null) {
+                        startActivity(intent);
+                    }
+                } else {
+                    Toast.makeText(EditorActivity.this, "The provider\'s phone needs to be filled in", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu options from the res/menu/menu_editor.xml file.
         // This adds menu items to the app bar.
