@@ -38,7 +38,7 @@
                 android:inputType="textCapWords" />
 
             <EditText
-                android:id="@+id/edit_product_breed"
+                android:id="@+id/edit_product_description"
                 style="@style/EditorFieldStyle"
                 android:hint="@string/hint_product_description"
                 android:inputType="textMultiLine" />

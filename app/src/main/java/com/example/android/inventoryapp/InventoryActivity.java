@@ -55,9 +55,7 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
                 Intent intent = new Intent(InventoryActivity.this, EditorActivity.class);
 
                 Uri currentUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, id);
-
                 intent.setData(currentUri);
-
                 startActivity(intent);
             }
         });
@@ -114,14 +112,12 @@ public class InventoryActivity extends AppCompatActivity implements LoaderManage
         builder.setMessage(R.string.delete_all_dialog_msg);
         builder.setPositiveButton(R.string.delete, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Delete" button, so delete the pet.
                 deleteAllProducts();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
-                // User clicked the "Cancel" button, so dismiss the dialog
-                // and continue editing the pet.
+
                 if (dialog != null) {
                     dialog.dismiss();
                 }
