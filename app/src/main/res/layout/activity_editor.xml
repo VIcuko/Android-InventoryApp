@@ -159,7 +159,7 @@
                     android:id="@+id/edit_provider_phone"
                     style="@style/EditorFieldStyle"
                     android:hint="@string/hint_provider_phone"
-                    android:inputType="textCapWords" />
+                    android:inputType="number" />
 
                 <Button
                     android:id="@+id/order_more_button"

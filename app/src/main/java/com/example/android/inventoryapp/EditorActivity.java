@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
@@ -97,9 +99,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mOrderMoreButton.setOnClickListener(orderMoreButtonClickListener());
         mOrderMoreButton.setClickable(false);
 
-        mProviderPhoneEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        mProviderPhoneEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
-            public void onFocusChange(View view, boolean b) {
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
                 String phoneNumber = mProviderPhoneEditText.getText().toString();
                 if (!phoneNumber.isEmpty()){
                     mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.colorEditorAccent));
@@ -108,6 +110,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     mOrderMoreButton.setBackgroundColor(EditorActivity.this.getColor(R.color.non_clickable));
                     mOrderMoreButton.setClickable(false);
                 }
+                return true;
             }
         });
     }
