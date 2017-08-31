@@ -16,7 +16,7 @@
             android:layout_width="@dimen/product_image_side"
             android:layout_height="@dimen/product_image_side"
             android:layout_gravity="center_vertical"
-            android:background="@drawable/ic_empty_inventory" />
+            android:background="@mipmap/ic_launcher" />
 
         <LinearLayout
             android:id="@+id/container_overview"
