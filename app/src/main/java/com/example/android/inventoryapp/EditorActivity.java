@@ -318,6 +318,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, productQuantity);
             values.put(ProductEntry.COLUMN_PROVIDER_NAME, providerName);
             values.put(ProductEntry.COLUMN_PROVIDER_PHONE, providerPhone);
+            values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, productImage);
 
             if (!(productName == null &&
                     productDescription == "" &&
