@@ -38,13 +38,13 @@ public final class ProductContract {
                 ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_PRODUCTS;
 
         public static final String _ID = BaseColumns._ID;
-        public static final String COLUMN_PRODUCT_IMAGE = "image";
         public static final String COLUMN_PRODUCT_NAME = "name";
         public static final String COLUMN_PRODUCT_DESCRIPTION = "description";
         public static final String COLUMN_PRODUCT_PRICE = "price";
         public static final String COLUMN_PRODUCT_QUANTITY = "quantity";
         public static final String COLUMN_PROVIDER_NAME = "provider_name";
         public static final String COLUMN_PROVIDER_PHONE = "provider_phone";
+        public static final String COLUMN_PRODUCT_IMAGE = "image";
 
         /*
         Initial price to be shown for new products
