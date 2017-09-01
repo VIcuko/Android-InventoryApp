@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif-medium"
             android:textAppearance="?android:textAppearanceMedium"
-            android:textColor="#2B3D4D"
+            android:textColor="@color/list_item_title"
             tools:text="Name of the product" />
 
         <TextView
@@ -29,7 +29,7 @@
             android:layout_below="@id/item_product_name"
             android:fontFamily="sans-serif"
             android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="#AEB6BD"
+            android:textColor="@color/list_item_subtitle"
             tools:text="Product price" />
 
     </LinearLayout>

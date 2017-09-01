@@ -12,4 +12,7 @@
     <color name="empty_view_subtitle">#64B5F6</color>
 
     <color name="non_clickable">#607D8B</color>
+
+    <color name="list_item_title">#2B3D4D</color>
+    <color name="list_item_subtitle">#AEB6BD</color>
 </resources>
