@@ -46,20 +46,19 @@ public class ProductCursorAdapter extends CursorAdapter {
             @Override
             public void onClick(View view) {
                 int quantityLeft = Integer.parseInt(productQuantity.getText().toString());
-                Log.i("quantityLeft variable","quantityLeft: "+quantityLeft);
+                Log.i("quantityLeft variable", "quantityLeft: " + quantityLeft);
                 if (quantityLeft > 0) {
                     quantityLeft -= 1;
                     ContentValues values = new ContentValues();
                     values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, quantityLeft);
 
-                    Log.i("cursor_id variable","cursor_id: "+ cursor_id);
+                    Log.i("cursor_id variable", "cursor_id: " + cursor_id);
 
                     Uri currentUri = ContentUris.withAppendedId(ProductEntry.CONTENT_URI, cursor_id);
                     int updatedLines = context.getContentResolver().update(currentUri, values, null, null);
-                    if (updatedLines>0 && quantityLeft == 0){
+                    if (updatedLines > 0 && quantityLeft == 0) {
                         saleButton.setBackgroundColor(context.getColor(R.color.non_clickable));
-                    }
-                    else {
+                    } else {
                         saleButton.setBackgroundColor(context.getColor(R.color.colorAccent));
                     }
 

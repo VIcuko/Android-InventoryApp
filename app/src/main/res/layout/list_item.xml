@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/list_view_padding"
-    android:descendantFocusability="blocksDescendants">
+    android:descendantFocusability="blocksDescendants"
+    android:padding="@dimen/list_view_padding">
 
     <LinearLayout
         android:id="@+id/product_details_group"
@@ -41,9 +41,9 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:background="@color/colorAccent"
+        android:focusableInTouchMode="true"
         android:text="@string/sale_button"
-        android:textColor="@android:color/white"
-        android:focusableInTouchMode="true"/>
+        android:textColor="@android:color/white" />
 
     <LinearLayout
         android:id="@+id/quantity_group"
@@ -66,11 +66,10 @@
             android:id="@+id/quantity_units"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="@dimen/vertical_padding_subtitle"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/item_product_quantity"
-            android:text="@string/units_text"
-            />
+            android:paddingLeft="@dimen/vertical_padding_subtitle"
+            android:text="@string/units_text" />
 
     </LinearLayout>
 

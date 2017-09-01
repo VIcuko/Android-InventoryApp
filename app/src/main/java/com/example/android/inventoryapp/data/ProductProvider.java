@@ -192,7 +192,7 @@ public class ProductProvider extends ContentProvider {
 
     }
 
-    private int updateProduct(Uri uri, ContentValues values, String selection, String[] selectionArgs){
+    private int updateProduct(Uri uri, ContentValues values, String selection, String[] selectionArgs) {
         if (values.size() == 0) {
             return 0;
         }

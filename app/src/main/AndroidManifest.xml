@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.android.inventoryapp">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL"/>
-    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MEDIA_CONTENT_CONTROL" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
 
     <application
         android:allowBackup="true"
@@ -21,17 +21,17 @@
         </activity>
         <activity
             android:name=".EditorActivity"
-            android:theme="@style/EditorTheme"
-            android:parentActivityName=".InventoryActivity">
+            android:parentActivityName=".InventoryActivity"
+            android:theme="@style/EditorTheme">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".InventoryActivity" />
         </activity>
+
         <provider
-            android:authorities="com.example.android.inventoryapp"
             android:name=".data.ProductProvider"
-            android:exported="false">
-        </provider>
+            android:authorities="com.example.android.inventoryapp"
+            android:exported="false"></provider>
     </application>
 
 </manifest>

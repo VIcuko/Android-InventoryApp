@@ -22,8 +22,8 @@
                 android:layout_width="@dimen/product_image_side"
                 android:layout_height="@dimen/product_image_side"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_add_box"
-                android:adjustViewBounds="true"/>
+                android:adjustViewBounds="true"
+                android:background="@drawable/ic_add_box" />
 
             <LinearLayout
                 android:id="@+id/container_overview"
@@ -87,10 +87,10 @@
                         android:textAlignment="center" />
 
                     <TextView
+                        style="@style/EditorFieldStyle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/currency"
-                        style="@style/EditorFieldStyle"/>
+                        android:text="@string/currency" />
                 </LinearLayout>
 
                 <ImageButton
