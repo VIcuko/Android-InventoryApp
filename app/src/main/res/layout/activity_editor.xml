@@ -22,7 +22,7 @@
                 android:layout_width="@dimen/product_image_side"
                 android:layout_height="@dimen/product_image_side"
                 android:layout_gravity="center_vertical"
-                android:background="@mipmap/ic_launcher"
+                android:background="@drawable/ic_add_box"
                 android:adjustViewBounds="true"/>
 
             <LinearLayout
