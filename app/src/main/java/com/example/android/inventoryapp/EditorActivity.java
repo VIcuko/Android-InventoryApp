@@ -331,7 +331,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String quantityString = !mQuantityEditText.getText().toString().trim().isEmpty() ? mQuantityEditText.getText().toString().trim() : null;
         String providerName = !mProviderNameEditText.getText().toString().trim().isEmpty() ? mProviderNameEditText.getText().toString().trim() : null;
         String providerPhone = !mProviderPhoneEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : "";
-        String productImageUri = !mProductImageUri.toString().isEmpty() ? mProductImageUri.toString() : null;
+        String productImageUri = mProductImageUri != null ? mProductImageUri.toString() : null;
 
         String validationMessage = validateEntries(productName, priceString, quantityString, providerName);
 
@@ -353,7 +353,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     productPrice == ProductEntry.PRICE_INITIAL &&
                     productQuantity == 0 &&
                     providerName == null &&
-                    providerPhone == null)) {
+                    providerPhone == null &&
+                    mProductImageUri == null)) {
 
                 if (mCurrentProductUri == null) {
                     Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
@@ -536,9 +537,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mProviderNameEditText.setText(providerNameText);
             mProviderPhoneEditText.setText(providerPhoneText);
 
-            // Here we assign the uri in the db to the imageview
-            Uri productImageUri = Uri.parse(productImageUriText);
-            mProductImage.setImageURI(productImageUri);
+            if (productImageUriText == null) {
+                mProductImage.setBackgroundResource(R.mipmap.ic_launcher);
+            } else {
+                // Here we assign the uri in the db to the imageview
+                Uri productImageUri = Uri.parse(productImageUriText);
+                mProductImage.setImageURI(productImageUri);
+            }
         }
     }
 
