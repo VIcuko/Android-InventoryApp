@@ -14,7 +14,7 @@ public class ProductDbHelper extends SQLiteOpenHelper {
 
     public static final String LOG_TAG = ProductDbHelper.class.getSimpleName();
     // If you change the database schema, you must increment the database version.
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 2;
 
     public static final String DATABASE_NAME = "inventory.db";
 
@@ -26,7 +26,8 @@ public class ProductDbHelper extends SQLiteOpenHelper {
                     ProductEntry.COLUMN_PRODUCT_PRICE + " INTEGER NOT NULL DEFAULT 0," +
                     ProductEntry.COLUMN_PRODUCT_QUANTITY + " INTEGER NOT NULL DEFAULT 0," +
                     ProductEntry.COLUMN_PROVIDER_NAME + " TEXT NOT NULL," +
-                    ProductEntry.COLUMN_PROVIDER_PHONE + " TEXT);";
+                    ProductEntry.COLUMN_PROVIDER_PHONE + " TEXT," +
+                    ProductEntry.COLUMN_PRODUCT_IMAGE + " BLOB);";
 
     private static final String SQL_DELETE_ENTRIES =
             "DROP TABLE IF EXISTS " + ProductEntry.TABLE_NAME;
