@@ -60,4 +60,5 @@
     <string name="priceString_validation">price value</string>
     <string name="quantityString_validation">quantity</string>
     <string name="providerName_validation">provider name</string>
+    <string name="image_validation">image</string>
 </resources>

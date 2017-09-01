@@ -47,6 +47,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mProviderNameEditText;
     private EditText mProviderPhoneEditText;
     private ImageView mProductImage;
+    private Uri mProductImageUri;
 
     private ImageButton mMinusPriceImageButton;
     private ImageButton mPlusPriceImageButton;
@@ -177,6 +178,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && resultData != null && resultData.getData() != null) {
             Uri uri = resultData.getData();
+            mProductImageUri = uri;
             ImageView imageView = (ImageView) findViewById(R.id.product_image);
             imageView.setBackground(null);
             imageView.setImageURI(uri);
@@ -327,12 +329,16 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String providerName = !mProviderNameEditText.getText().toString().trim().isEmpty() ? mProviderNameEditText.getText().toString().trim() : null;
         String providerPhone = !mProviderPhoneEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : "";
 
-        Bitmap initialBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_add_box);
-        Bitmap currentBitmap = ((BitmapDrawable)mProductImage.getDrawable()).getBitmap();
+        Uri initialUri = Uri.parse("android.resource://com.example.android.inventory.app/drawable/ic_add_box");
+        String productImageUri;
+        if (mProductImageUri != null) {
+            productImageUri = mProductImageUri != initialUri ? mProductImageUri.toString() : null;
+        }
+        else {
+            productImageUri = null;
+        }
 
-        String productImageUri = mProductImageUri != null ? mProductImageUri.toString() : null;
-
-        String validationMessage = validateEntries(productName, priceString, quantityString, providerName);
+        String validationMessage = validateEntries(productName, priceString, quantityString, providerName, productImageUri);
 
         if (validationMessage.isEmpty()) {
             int productPrice = Integer.parseInt(priceString);
@@ -353,7 +359,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     productQuantity == 0 &&
                     providerName == null &&
                     providerPhone == null &&
-                    productImageUri == null)) {
+                    mProductImageUri == null)) {
 
                 if (mCurrentProductUri == null) {
                     Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
@@ -383,7 +389,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
     }
 
-    private String validateEntries(String productName, String priceString, String quantityString, String providerName) {
+    private String validateEntries(String productName, String priceString, String quantityString,
+                                   String providerName, String productImageUri) {
         String message = "";
         if (productName == null || priceString == null || quantityString == null || providerName == null) {
             if (providerName == null) {
@@ -397,6 +404,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
             if (productName == null) {
                 message = this.getString(R.string.productName_validation);
+            }
+            if (productImageUri == null) {
+                message = this.getString(R.string.image_validation);
             }
         }
         return message;
@@ -536,13 +546,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mProviderNameEditText.setText(providerNameText);
             mProviderPhoneEditText.setText(providerPhoneText);
 
-            if(productImageUriText == null){
+            if (productImageUriText == null) {
                 mProductImage.setImageBitmap(null);
                 mProductImage.setBackgroundResource(R.mipmap.ic_launcher);
-            }
-            else {
+            } else {
                 // Here we assign the uri in the db to the imageview
                 Uri productImageUri = Uri.parse(productImageUriText);
+                mProductImageUri = productImageUri;
                 mProductImage.setBackground(null);
                 mProductImage.setImageURI(productImageUri);
             }
