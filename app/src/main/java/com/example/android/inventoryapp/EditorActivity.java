@@ -1,5 +1,7 @@
 package com.example.android.inventoryapp;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
@@ -7,14 +9,17 @@ import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -32,10 +37,12 @@ import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
 
 import java.io.IOException;
 
+import static android.R.attr.data;
+
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int PRODUCT_LOADER = 0;
-    private int PICK_IMAGE_REQUEST = 1;
+    private static final int PICK_IMAGE_REQUEST = 1;
 
     private EditText mNameEditText;
     private EditText mDescriptionEditText;
@@ -160,39 +167,62 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         };
     }
 
-    private View.OnClickListener productImageClickListener(){
+    private View.OnClickListener productImageClickListener() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent();
-                // Show only images, no videos or anything else
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
-                // Always show the chooser (if there are multiple options available)
-                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+                tryToOpenImageSelector();
             }
         };
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int requestCode, int resultCode, Intent resultData) {
+        super.onActivityResult(requestCode, resultCode, resultData);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
-
-            Uri uri = data.getData();
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && resultData != null && resultData.getData() != null) {
+            Uri uri = resultData.getData();
             mProductImageUri = uri;
+            ImageView imageView = (ImageView) findViewById(R.id.product_image);
+            imageView.setImageURI(uri);
+            imageView.invalidate();
+        }
+    }
 
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                // Log.d(TAG, String.valueOf(bitmap));
-
-                ImageView imageView = (ImageView) findViewById(R.id.product_image);
-                imageView.setImageBitmap(bitmap);
-            } catch (IOException e) {
-                e.printStackTrace();
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case PICK_IMAGE_REQUEST: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    openImageSelector();
+                }
             }
         }
+    }
+
+    public void tryToOpenImageSelector() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    PICK_IMAGE_REQUEST);
+            return;
+        }
+        openImageSelector();
+    }
+
+    private void openImageSelector() {
+        Intent intent;
+        if (Build.VERSION.SDK_INT < 19) {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+        } else {
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+        }
+        intent.setType("image/*");
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
     }
 
     private TextWatcher phoneNumberTextWatcher() {
@@ -464,7 +494,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 ProductEntry.COLUMN_PRODUCT_PRICE,
                 ProductEntry.COLUMN_PRODUCT_QUANTITY,
                 ProductEntry.COLUMN_PROVIDER_NAME,
-                ProductEntry.COLUMN_PROVIDER_PHONE};
+                ProductEntry.COLUMN_PROVIDER_PHONE,
+                ProductEntry.COLUMN_PRODUCT_IMAGE};
 
         return new CursorLoader(this,
                 mCurrentProductUri,
@@ -487,6 +518,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int quantityColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_QUANTITY);
             int providerNameColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PROVIDER_NAME);
             int providerPhoneColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PROVIDER_PHONE);
+            int productImageColumn = data.getColumnIndexOrThrow(ProductEntry.COLUMN_PRODUCT_IMAGE);
 
             String nameText = data.getString(nameColumn);
             String descriptionText = data.getString(descriptionColumn);
@@ -494,6 +526,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             String quantityText = Integer.toString(data.getInt(quantityColumn));
             String providerNameText = data.getString(providerNameColumn);
             String providerPhoneText = data.getString(providerPhoneColumn);
+            String productImageUriText = data.getString(productImageColumn);
 
             // Here we handle the data received in the Cursor
             mNameEditText.setText(nameText);
@@ -502,6 +535,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mQuantityEditText.setText(quantityText);
             mProviderNameEditText.setText(providerNameText);
             mProviderPhoneEditText.setText(providerPhoneText);
+
+            // Here we assign the uri in the db to the imageview
+            Uri productImageUri = Uri.parse(productImageUriText);
+            mProductImage.setImageURI(productImageUri);
         }
     }
 
