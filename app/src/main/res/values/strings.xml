@@ -46,7 +46,7 @@
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
 
-    <string name="delete_all_dialog_msg">Are you sure you want to delete all pets?</string>
+    <string name="delete_all_dialog_msg">Are you sure you want to delete all items?</string>
 
     <string name="editor_activity_title_add_product">Add new product</string>
     <string name="editor_activity_title_edit_product">Edit product</string>
