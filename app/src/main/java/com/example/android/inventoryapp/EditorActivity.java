@@ -184,6 +184,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             Uri uri = resultData.getData();
             mProductImageUri = uri;
             ImageView imageView = (ImageView) findViewById(R.id.product_image);
+            imageView.setBackground(null);
             imageView.setImageURI(uri);
             imageView.invalidate();
         }
@@ -537,11 +538,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mProviderNameEditText.setText(providerNameText);
             mProviderPhoneEditText.setText(providerPhoneText);
 
-            if (productImageUriText == null) {
+            if(productImageUriText == null){
+                mProductImage.setImageBitmap(null);
                 mProductImage.setBackgroundResource(R.mipmap.ic_launcher);
-            } else {
+            }
+            else {
                 // Here we assign the uri in the db to the imageview
                 Uri productImageUri = Uri.parse(productImageUriText);
+                mProductImageUri = productImageUri;
+                mProductImage.setBackground(null);
                 mProductImage.setImageURI(productImageUri);
             }
         }
