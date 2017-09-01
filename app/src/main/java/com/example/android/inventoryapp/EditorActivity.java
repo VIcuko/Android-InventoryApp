@@ -44,6 +44,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mProviderNameEditText;
     private EditText mProviderPhoneEditText;
     private ImageView mProductImage;
+    private Uri mProductImageUri;
 
     private ImageButton mMinusPriceImageButton;
     private ImageButton mPlusPriceImageButton;
@@ -75,6 +76,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mProviderNameEditText = (EditText) findViewById(R.id.edit_provider_name);
         mProviderPhoneEditText = (EditText) findViewById(R.id.edit_provider_phone);
         mProductImage = (ImageView) findViewById(R.id.product_image);
+        mProductImageUri = null;
 
         mMinusPriceImageButton = (ImageButton) findViewById(R.id.minus_price_button);
         mPlusPriceImageButton = (ImageButton) findViewById(R.id.plus_price_button);
@@ -179,6 +181,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
 
             Uri uri = data.getData();
+            mProductImageUri = uri;
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
@@ -298,12 +301,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String quantityString = !mQuantityEditText.getText().toString().trim().isEmpty() ? mQuantityEditText.getText().toString().trim() : null;
         String providerName = !mProviderNameEditText.getText().toString().trim().isEmpty() ? mProviderNameEditText.getText().toString().trim() : null;
         String providerPhone = !mProviderPhoneEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : "";
-
-        Bitmap productImage = ((BitmapDrawable)mProductImage.getDrawable()).getBitmap();
-        Bitmap initialImage = BitmapFactory.decodeResource(getResources(),R.drawable.ic_add_box);
-        if (productImage.sameAs(initialImage)){
-            productImage = null;
-        }
+        String productImageUri = !mProductImageUri.toString().isEmpty() ? mProductImageUri.toString() : null;
 
         String validationMessage = validateEntries(productName, priceString, quantityString, providerName);
 
@@ -318,7 +316,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, productQuantity);
             values.put(ProductEntry.COLUMN_PROVIDER_NAME, providerName);
             values.put(ProductEntry.COLUMN_PROVIDER_PHONE, providerPhone);
-            values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, productImage);
+            values.put(ProductEntry.COLUMN_PRODUCT_IMAGE, productImageUri);
 
             if (!(productName == null &&
                     productDescription == "" &&
