@@ -149,7 +149,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         };
     }
 
-    private TextWatcher phoneNumberTextWatcher(){
+    private TextWatcher phoneNumberTextWatcher() {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -216,7 +216,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 saveProduct();
-                finish();
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -252,53 +251,77 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private void saveProduct() {
         String productName = !mNameEditText.getText().toString().trim().isEmpty() ? mNameEditText.getText().toString().trim() : null;
         String productDescription = !mDescriptionEditText.getText().toString().trim().isEmpty() ? mDescriptionEditText.getText().toString().trim() : "";
-
-        String priceString = !mPriceEditText.getText().toString().trim().isEmpty() ? mPriceEditText.getText().toString().trim() : "0";
-        int productPrice = Integer.parseInt(priceString);
-
-        String quantityString = !mQuantityEditText.getText().toString().trim().isEmpty() ? mQuantityEditText.getText().toString().trim() : "0";
-        int productQuantity = Integer.parseInt(quantityString);
-
+        String priceString = !mPriceEditText.getText().toString().trim().isEmpty() ? mPriceEditText.getText().toString().trim() : null;
+        String quantityString = !mQuantityEditText.getText().toString().trim().isEmpty() ? mQuantityEditText.getText().toString().trim() : null;
         String providerName = !mProviderNameEditText.getText().toString().trim().isEmpty() ? mProviderNameEditText.getText().toString().trim() : null;
-        String providerPhone = !mProviderPhoneEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : null;
+        String providerPhone = !mProviderPhoneEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : "";
 
-        ContentValues values = new ContentValues();
-        values.put(ProductEntry.COLUMN_PRODUCT_NAME, productName);
-        values.put(ProductEntry.COLUMN_PRODUCT_DESCRIPTION, productDescription);
-        values.put(ProductEntry.COLUMN_PRODUCT_PRICE, productPrice);
-        values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, productQuantity);
-        values.put(ProductEntry.COLUMN_PROVIDER_NAME, providerName);
-        values.put(ProductEntry.COLUMN_PROVIDER_PHONE, providerPhone);
+        String validationMessage = validateEntries(productName, priceString, quantityString, providerName);
 
-        if (!(productName == null &&
-                productDescription == "" &&
-                productPrice == ProductEntry.PRICE_INITIAL &&
-                productQuantity == 0 &&
-                providerName == null &&
-                providerPhone == null)) {
+        if (validationMessage.isEmpty()) {
+            int productPrice = Integer.parseInt(priceString);
+            int productQuantity = Integer.parseInt(quantityString);
 
-            if (mCurrentProductUri == null) {
-                Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
-                if (newUri == null) {
-                    // If the new content URI is null, then there was an error with insertion.
-                    Toast.makeText(this, getString(R.string.editor_insert_product_failed),
-                            Toast.LENGTH_SHORT).show();
+            ContentValues values = new ContentValues();
+            values.put(ProductEntry.COLUMN_PRODUCT_NAME, productName);
+            values.put(ProductEntry.COLUMN_PRODUCT_DESCRIPTION, productDescription);
+            values.put(ProductEntry.COLUMN_PRODUCT_PRICE, productPrice);
+            values.put(ProductEntry.COLUMN_PRODUCT_QUANTITY, productQuantity);
+            values.put(ProductEntry.COLUMN_PROVIDER_NAME, providerName);
+            values.put(ProductEntry.COLUMN_PROVIDER_PHONE, providerPhone);
+
+            if (!(productName == null &&
+                    productDescription == "" &&
+                    productPrice == ProductEntry.PRICE_INITIAL &&
+                    productQuantity == 0 &&
+                    providerName == null &&
+                    providerPhone == null)) {
+
+                if (mCurrentProductUri == null) {
+                    Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
+                    if (newUri == null) {
+                        // If the new content URI is null, then there was an error with insertion.
+                        Toast.makeText(this, getString(R.string.editor_insert_product_failed),
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Otherwise, the insertion was successful and we can display a toast.
+                        Toast.makeText(this, getString(R.string.editor_insert_product_successful),
+                                Toast.LENGTH_SHORT).show();
+                    }
                 } else {
-                    // Otherwise, the insertion was successful and we can display a toast.
-                    Toast.makeText(this, getString(R.string.editor_insert_product_successful),
-                            Toast.LENGTH_SHORT).show();
+                    int updatedLines = getContentResolver().update(mCurrentProductUri, values, null, null);
+                    if (updatedLines > 0) {
+                        Toast.makeText(this, getString(R.string.editor_update_done),
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(this, getString(R.string.editor_update_none),
+                                Toast.LENGTH_SHORT).show();
+                    }
                 }
-            } else {
-                int updatedLines = getContentResolver().update(mCurrentProductUri, values, null, null);
-                if (updatedLines > 0) {
-                    Toast.makeText(this, getString(R.string.editor_update_done),
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, getString(R.string.editor_update_none),
-                            Toast.LENGTH_SHORT).show();
-                }
+                finish();
+            }
+        } else {
+            Toast.makeText(this, "Sorry, it seems the " + validationMessage + " is missing", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private String validateEntries(String productName, String priceString, String quantityString, String providerName) {
+        String message = "";
+        if (productName == null || priceString == null || quantityString == null || providerName == null) {
+            if (providerName == null) {
+                message = this.getString(R.string.providerName_validation);
+            }
+            if (quantityString == null) {
+                message = this.getString(R.string.quantityString_validation);
+            }
+            if (priceString == null) {
+                message = this.getString(R.string.priceString_validation);
+            }
+            if (productName == null) {
+                message = this.getString(R.string.productName_validation);
             }
         }
+        return message;
     }
 
     private void deleteProduct() {

@@ -51,6 +51,13 @@
     <string name="editor_activity_title_add_product">Add new product</string>
     <string name="editor_activity_title_edit_product">Edit product</string>
 
+    <!--ListView strings-->
     <string name="sale_button">Sale</string>
     <string name="units_text">units</string>
+
+    <!--EditorActivity validation strings-->
+    <string name="productName_validation">product name</string>
+    <string name="priceString_validation">price value</string>
+    <string name="quantityString_validation">quantity</string>
+    <string name="providerName_validation">provider name</string>
 </resources>
