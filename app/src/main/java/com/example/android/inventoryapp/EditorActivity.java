@@ -13,10 +13,10 @@ import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NavUtils;
 import android.support.v4.content.ContextCompat;
@@ -35,10 +35,6 @@ import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
 
-import java.io.IOException;
-
-import static android.R.attr.data;
-
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int PRODUCT_LOADER = 0;
@@ -51,7 +47,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mProviderNameEditText;
     private EditText mProviderPhoneEditText;
     private ImageView mProductImage;
-    private Uri mProductImageUri;
 
     private ImageButton mMinusPriceImageButton;
     private ImageButton mPlusPriceImageButton;
@@ -83,7 +78,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mProviderNameEditText = (EditText) findViewById(R.id.edit_provider_name);
         mProviderPhoneEditText = (EditText) findViewById(R.id.edit_provider_phone);
         mProductImage = (ImageView) findViewById(R.id.product_image);
-        mProductImageUri = null;
 
         mMinusPriceImageButton = (ImageButton) findViewById(R.id.minus_price_button);
         mPlusPriceImageButton = (ImageButton) findViewById(R.id.plus_price_button);
@@ -183,7 +177,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == Activity.RESULT_OK && resultData != null && resultData.getData() != null) {
             Uri uri = resultData.getData();
-            mProductImageUri = uri;
             ImageView imageView = (ImageView) findViewById(R.id.product_image);
             imageView.setBackground(null);
             imageView.setImageURI(uri);
@@ -333,6 +326,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String quantityString = !mQuantityEditText.getText().toString().trim().isEmpty() ? mQuantityEditText.getText().toString().trim() : null;
         String providerName = !mProviderNameEditText.getText().toString().trim().isEmpty() ? mProviderNameEditText.getText().toString().trim() : null;
         String providerPhone = !mProviderPhoneEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : "";
+
+        Bitmap initialBitmap = BitmapFactory.decodeResource(getResources(),R.drawable.ic_add_box);
+        Bitmap currentBitmap = ((BitmapDrawable)mProductImage.getDrawable()).getBitmap();
+
         String productImageUri = mProductImageUri != null ? mProductImageUri.toString() : null;
 
         String validationMessage = validateEntries(productName, priceString, quantityString, providerName);
@@ -356,7 +353,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                     productQuantity == 0 &&
                     providerName == null &&
                     providerPhone == null &&
-                    mProductImageUri == null)) {
+                    productImageUri == null)) {
 
                 if (mCurrentProductUri == null) {
                     Uri newUri = getContentResolver().insert(ProductEntry.CONTENT_URI, values);
@@ -546,7 +543,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             else {
                 // Here we assign the uri in the db to the imageview
                 Uri productImageUri = Uri.parse(productImageUriText);
-                mProductImageUri = productImageUri;
                 mProductImage.setBackground(null);
                 mProductImage.setImageURI(productImageUri);
             }
