@@ -3,14 +3,15 @@ package com.example.android.inventoryapp;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -19,25 +20,28 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.ProductContract.ProductEntry;
 
-import static android.R.attr.name;
+import java.io.IOException;
 
 public class EditorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final int PRODUCT_LOADER = 0;
+    private int PICK_IMAGE_REQUEST = 1;
+
     private EditText mNameEditText;
     private EditText mDescriptionEditText;
     private EditText mPriceEditText;
     private EditText mQuantityEditText;
     private EditText mProviderNameEditText;
     private EditText mProviderPhoneEditText;
+    private ImageView mProductImage;
 
     private ImageButton mMinusPriceImageButton;
     private ImageButton mPlusPriceImageButton;
@@ -68,6 +72,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
         mProviderNameEditText = (EditText) findViewById(R.id.edit_provider_name);
         mProviderPhoneEditText = (EditText) findViewById(R.id.edit_provider_phone);
+        mProductImage = (ImageView) findViewById(R.id.product_image);
 
         mMinusPriceImageButton = (ImageButton) findViewById(R.id.minus_price_button);
         mPlusPriceImageButton = (ImageButton) findViewById(R.id.plus_price_button);
@@ -104,6 +109,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mPlusQuantityImageButton.setOnClickListener(imageButtonClickListener(quantityField, plusOne));
 
         mOrderMoreButton.setOnClickListener(orderMoreButtonClickListener());
+
+        mProductImage.setOnClickListener(productImageClickListener());
 
         mProviderPhoneEditText.addTextChangedListener(phoneNumberTextWatcher());
     }
@@ -147,6 +154,40 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 }
             }
         };
+    }
+
+    private View.OnClickListener productImageClickListener(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                // Show only images, no videos or anything else
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                // Always show the chooser (if there are multiple options available)
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE_REQUEST);
+            }
+        };
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+
+            Uri uri = data.getData();
+
+            try {
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                // Log.d(TAG, String.valueOf(bitmap));
+
+                ImageView imageView = (ImageView) findViewById(R.id.product_image);
+                imageView.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private TextWatcher phoneNumberTextWatcher() {
