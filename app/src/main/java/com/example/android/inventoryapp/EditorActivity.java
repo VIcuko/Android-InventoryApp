@@ -101,6 +101,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mPlusPriceImageButton.setOnTouchListener(mTouchListener);
         mMinusQuantityImageButton.setOnTouchListener(mTouchListener);
         mPlusQuantityImageButton.setOnTouchListener(mTouchListener);
+        mProductImage.setOnTouchListener(mTouchListener);
 
         if (currentProductUri == null) {
             setTitle(getString(R.string.editor_activity_title_add_product));
