@@ -9,6 +9,8 @@ import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -296,6 +298,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String quantityString = !mQuantityEditText.getText().toString().trim().isEmpty() ? mQuantityEditText.getText().toString().trim() : null;
         String providerName = !mProviderNameEditText.getText().toString().trim().isEmpty() ? mProviderNameEditText.getText().toString().trim() : null;
         String providerPhone = !mProviderPhoneEditText.getText().toString().trim().isEmpty() ? mProviderPhoneEditText.getText().toString().trim() : "";
+
+        Bitmap productImage = ((BitmapDrawable)mProductImage.getDrawable()).getBitmap();
+        Bitmap initialImage = BitmapFactory.decodeResource(getResources(),R.drawable.ic_add_box);
+        if (productImage.sameAs(initialImage)){
+            productImage = null;
+        }
 
         String validationMessage = validateEntries(productName, priceString, quantityString, providerName);
 
