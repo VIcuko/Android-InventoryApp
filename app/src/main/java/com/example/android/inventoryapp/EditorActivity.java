@@ -392,7 +392,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private String validateEntries(String productName, String priceString, String quantityString,
                                    String providerName, String productImageUri) {
         String message = "";
-        if (productName == null || priceString == null || quantityString == null || providerName == null) {
+        if (productName == null || priceString == null || quantityString == null || providerName == null || productImageUri == null) {
             if (providerName == null) {
                 message = this.getString(R.string.providerName_validation);
             }
