@@ -140,7 +140,11 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             public void onClick(View view) {
                 int currentValue = !objectField.getText().toString().isEmpty() ? Integer.parseInt(objectField.getText().toString()) : 0;
                 currentValue += action;
-                objectField.setText(Integer.toString(currentValue));
+                if (currentValue < 0) {
+                    Toast.makeText(EditorActivity.this, getString(R.string.negative_value_limit), Toast.LENGTH_SHORT).show();
+                } else {
+                    objectField.setText(Integer.toString(currentValue));
+                }
             }
         };
     }
@@ -157,7 +161,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         startActivity(intent);
                     }
                 } else {
-                    Toast.makeText(EditorActivity.this, "The provider\'s phone needs to be filled in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditorActivity.this, getString(R.string.providers_phone), Toast.LENGTH_SHORT).show();
                 }
             }
         };
@@ -333,8 +337,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         String productImageUri;
         if (mProductImageUri != null) {
             productImageUri = mProductImageUri != initialUri ? mProductImageUri.toString() : null;
-        }
-        else {
+        } else {
             productImageUri = null;
         }
 

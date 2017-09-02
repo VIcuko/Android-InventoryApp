@@ -61,8 +61,8 @@
     <string name="quantityString_validation">quantity</string>
     <string name="providerName_validation">provider name</string>
     <string name="image_validation">image</string>
-    <string name="negative_price_limit">Sorry, the price can\'t be negative</string>
-    <string name="negative_quantity_limit">Sorry, the quantity can\'t be negative</string>
+    <string name="negative_value_limit">Sorry, the value can\'t be negative</string>
+    <string name="providers_phone">The provider\'s phone needs to be filled in</string>
 
 
 </resources>
